@@ -12,23 +12,19 @@ const allowedOrigins = [
     'https://shopping-frontend-ochre.vercel.app'
 ];
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            // Allow requests with no origin (like mobile apps, curl, Postman) or matching origins
-            if (!origin || allowedOrigins.includes(origin)) {
-                return callback(null, true);
-            }
-            return callback(null, true); // Fallback: allow to avoid preflight crash
-        },
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'apikey'],
-    })
-);
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey']
+}));
 
 // Explicitly handle all preflight OPTIONS requests before any route
-app.options('*', cors());
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
