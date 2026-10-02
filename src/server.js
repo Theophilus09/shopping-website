@@ -49,3 +49,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Backend server running on http://localhost:${PORT}`);
 });
+
+app.get('/', (req, res) => {
+    res.json({ message: 'Shopping backend is running live!' });
+});
