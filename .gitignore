@@ -1,0 +1,17 @@
+# Dependencies (too large to commit)
+node_modules/
+
+# Environment variables & secrets (CRITICAL: keeps your Supabase & Mailgun keys safe)
+.env
+.env.*
+!.env.example
+
+# Logs and runtime debugging files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# Operating system files
+.DS_Store
+Thumbs.db
