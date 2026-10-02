@@ -9,18 +9,14 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://shopping-frontend-ochre.vercel.app',
-    process.env.FRONTEND_URL
-].filter(Boolean);
+    'https://shopping-frontend-ochre.vercel.app'
+];
 
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-        return callback(new Error(`CORS origin ${origin} not allowed`));
-    },
-    credentials: true
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
